@@ -1,0 +1,32 @@
+
+/* Sign form */
+.signupForm{
+    width:700px;
+    margin:auto;
+    
+}
+.signupForm:hover{
+box-shadow:5px 5px 5px 5px #aaaaaa;
+}
+/* Signup error message text */
+.signuperrortxt{
+    color:red
+}
+/* Signup Text */
+.signuptxt{
+    padding-top:10px;
+    font-size: 27px;
+}
+#signupinput{
+   width: 500px;
+   margin-top: 10px;
+   margin-bottom: 5px;
+}
+/* Signup checkbox */
+#signupchecboxtxt{
+    margin-top:20px;
+    margin-right:65%;
+}
+#signupcheckbox{
+    margin-left:15%;
+}
