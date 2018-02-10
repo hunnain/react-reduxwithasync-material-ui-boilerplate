@@ -4,7 +4,6 @@ import history from '../../routers/history';
 
 export default class SignupMiddleware{
      static asyncSignup(data){
-        //  console.log('test',data.email)
           return (dispatch)=>{
              dispatch(login_signup_action.register()) 
             //  console.log(login_signup_action.register()) 
@@ -22,5 +21,23 @@ export default class SignupMiddleware{
          })
         }
         
+     }
+     static asyncLogin(data){
+       return(dispatch)=>{
+         dispatch(login_signup_action.login())
+        //  console.log('data',data)
+        firebase.auth().signInWithEmailAndPassword(data.email, data.password).then((snap)=>{
+          console.log("Signin",snap)
+          firebase.database().ref('chatapp').child(`users/${snap.uid}`).on('value',(snapshot)=>{
+            console.log('Data get',snapshot.val())
+            // let loginData = snapshot.val()
+            //  loginData.uid= snapshot.key()
+            dispatch(login_signup_action.login_Success(snapshot.val()))
+            console.log("Login Sucess")
+          });
+        }).catch((error)=>{
+          dispatch(login_signup_action.login_Failed(error))
+        })
+       }
      }
 }

@@ -23,7 +23,16 @@ const login_signup_reducer=(state=INITIAL_STATE,action)=>{
             }
             case login_signup_action.LOGIN:
             return{
-                ...state,loading:true,error:false,userAuthenticated:false
+                ...state,loading:false,error:false,userAuthenticated:false
+            }
+            case login_signup_action.LOGIN_SUCCESS:
+            return{
+                ...state, loading:false, error:false, userAuthenticated:true, userAuth:action.payload , userRegistered:false, errorMessage:{}
+            }
+            case login_signup_action.LOGIN_FAILED:
+            // console.log(action.payload)
+            return{
+                ...state, loading:false, error:true, userAuthenticated:false, errorMessage:action.payload
             }
          default:
              return state;

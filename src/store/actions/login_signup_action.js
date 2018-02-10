@@ -8,6 +8,8 @@ export default class login_signup_action{
     static REGISTER_SUCCESS = 'REGISTER_SUCCESS';
     static REGISTER_FAILED = 'REGISTER_FAILED';
     static LOGIN = 'LOGIN';
+    static LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+    static LOGIN_FAILED = 'LOGIN_FAILED'
 
     // Signup Actions
     static register=()=>{
@@ -32,6 +34,18 @@ export default class login_signup_action{
     static login=()=>{
         return{
             type:'LOGIN'
+        }
+    }
+    static login_Success=(data)=>{
+        return{
+            type:'LOGIN_SUCCESS',
+            payload:data
+        }
+    }
+    static login_Failed=(error)=>{
+        return{
+            type:'LOGIN_FAILED',
+            payload:error.message
         }
     }
 }
