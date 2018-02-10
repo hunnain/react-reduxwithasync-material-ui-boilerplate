@@ -10,17 +10,21 @@ const INITIAL_STATE={
 const login_signup_reducer=(state=INITIAL_STATE,action)=>{
      switch (action.type) {
          case login_signup_action.REGISTER:
-             return({
+             return{
                  ...state , loading:true, error:false,userRegistered:false
-             })
+             }
             case login_signup_action.REGISTER_SUCCESS:
-            return({
+            return{
                 ...state , loading:false, error:false,userRegistered:true
-            })
+            }
             case login_signup_action.REGISTER_FAILED:
-            return({
+            return{
                 ...state,loading:false,error:true,errorMessage:action.payload
-            })
+            }
+            case login_signup_action.LOGIN:
+            return{
+                ...state,loading:true,error:false,userAuthenticated:false
+            }
          default:
              return state;
      }

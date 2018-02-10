@@ -9,6 +9,8 @@ import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'materi
 import Checkbox from 'material-ui/Checkbox';
 import Button from 'material-ui/Button';
 import Snackbar from 'material-ui/Snackbar';
+import { LinearProgress } from 'material-ui/Progress';//Loading material ui
+import history from '../routers/history';//History push
 //Material Css
 const styles = theme => ({
     container: {
@@ -29,6 +31,9 @@ const styles = theme => ({
       group: {
         margin: `${theme.spacing.unit}px 0`,
       },
+      progress: {
+        margin: `0 ${theme.spacing.unit * 2}px`,
+      },
   });
 class SignupComponent extends Component{
     constructor(props){
@@ -39,6 +44,9 @@ class SignupComponent extends Component{
         }
         this.classes={props}
     } 
+    handleClose(){
+      this.state = false
+    }
     render(){
         return(
             <div>
@@ -50,10 +58,18 @@ class SignupComponent extends Component{
               :
               this.state.snackbaropen=false  
               }
-              <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'right' }} open={this.state.snackbaropen} onClose={this.state.snackbaropen=false} SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span id="message-id">{this.props.isState.errormessage}</span>} />
+              <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'right' }} open={this.state.snackbaropen} onMouseOver={this.handleClose.bind(this)} SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span id="formchecking">{this.props.isState.errormessage}</span>} />
+              {(this.props.login_signup_reducer.error)?
+              this.state.snackbaropen = true
+              :
+              this.state.snackbaropen=false
+              }
+              {/* Snackbar of Firebase error */}
+              <Snackbar anchorOrigin={{ vertical:'top', horizontal:'left' }} open={this.state.snackbaropen} onClose={this.state.snackbaropen=false} SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span onClick={this.state.snackbaropen=false} id="firebaseformchecking">{this.props.login_signup_reducer.errorMessage}</span>} />
                 <h2>Welcome in Social App</h2>
                 <h2>{this.props.isState.signuperrormessage}</h2>
                 <div className="signupForm">
+                {(this.props.login_signup_reducer.loading)? <LinearProgress variant="query" />:''}
                 <h3 className="signuptxt">Signup</h3>
                 <form method="POST"  className={this.classes.container} noValidate autoComplete="off" >
                 <TextField required label="UserName" placeholder="UserName" id="signupinput" defaultValue="" className={this.classes.textField} helperText="Example: John" onChange={this.props.issignupInputHandler} name="userName"/>
@@ -67,8 +83,11 @@ class SignupComponent extends Component{
                 </RadioGroup>
                 <Button color="primary" onClick={this.props.issignupsubmit} id="signupinput" className={this.classes.button}>Signup</Button>
                 </form>
-                {/* <h2>{this.props.login_signup_reducer.errorMessage}</h2> */}
-                {/* {console.log(this.props.login_signup_reducer.loading)} */}
+                {/* If user registered is true so its directly go to login page */}
+               {(this.props.login_signup_reducer.userRegistered)?
+                 history.push('/'):
+                 ''
+              }
                 </div>
                 </div>
                 </DocumentTitle>

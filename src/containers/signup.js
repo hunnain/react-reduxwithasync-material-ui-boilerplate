@@ -12,15 +12,16 @@ class Signup extends Component {
             password:'',
             age:undefined,
             gender:null,
-            joiningdate:{},
+            joiningdate:undefined,
             errormessage:false
         }
     }
 signupInputHandler(ev){
     ev.preventDefault()
-    
+    var date = new Date();
     this.setState({
-        [ev.target.name]:ev.target.value
+        [ev.target.name]:ev.target.value.toLowerCase(),
+        joiningdate:date.toUTCString()
     })
 }
 signupsubmit(ev){
@@ -60,10 +61,6 @@ signupsubmit(ev){
        }
     }
     if(userNameRequired===false || userEmailRequired===false ||userPasswordRequired===false || userAgeRequired===false || userGenderRequired===false){
-      console.log("suvmit",this.state) 
-      let sitejoindate = Date.parse(new Date());
-      var d = new Date(sitejoindate);
-      this.state.joiningdate = d;
       let userData ={
           email:this.state.email,
           password:this.state.password,
@@ -80,7 +77,6 @@ signupsubmit(ev){
    
 }
     render(){
-        console.log(this.props.login_signup_reducer)
         return(
             <SignupComponent isState={this.state} issignupInputHandler={this.signupInputHandler.bind(this)} issignupsubmit={this.signupsubmit.bind(this)} login_signup_reducer={this.props.login_signup_reducer}/>
         )
@@ -89,7 +85,6 @@ signupsubmit(ev){
 
 // Map State to Props
 function mapStateToProp(state) {
-    console.log(state.login_signup_reducer)
     return {
         login_signup_reducer : state.login_signup_reducer
     }
@@ -98,7 +93,6 @@ function mapStateToProp(state) {
 function mapDispatchToProps(dispatch){
     return{
         signup:(userInfo)=>{
-            // dispatch(login_signup_action.signupAction(userInfo))
             dispatch(SignupMiddleware.asyncSignup(userInfo))
         }
     }

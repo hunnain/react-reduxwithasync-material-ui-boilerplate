@@ -1,6 +1,7 @@
 import login_signup_reducer from './login_signup_reducers';
 import {combineReducers} from 'redux';
-combineReducers({
+
+var root = combineReducers({
     login_signup_reducer
 })
-export default combineReducers;
+export default root;
