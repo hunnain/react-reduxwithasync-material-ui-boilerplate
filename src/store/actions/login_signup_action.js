@@ -10,6 +10,7 @@ export default class login_signup_action{
     static LOGIN = 'LOGIN';
     static LOGIN_SUCCESS = 'LOGIN_SUCCESS'
     static LOGIN_FAILED = 'LOGIN_FAILED'
+    static LOGOUT = 'LOGOUT'
 
     // Signup Actions
     static register=()=>{
@@ -46,6 +47,11 @@ export default class login_signup_action{
         return{
             type:'LOGIN_FAILED',
             payload:error.message
+        }
+    }
+    static logout=()=>{
+        return{
+            type:'LOGOUT'
         }
     }
 }

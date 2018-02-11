@@ -78,7 +78,7 @@ signupsubmit(ev){
 }
     render(){
         return(
-            <SignupComponent isState={this.state} issignupInputHandler={this.signupInputHandler.bind(this)} issignupsubmit={this.signupsubmit.bind(this)} login_signup_reducer={this.props.login_signup_reducer}/>
+            <SignupComponent isState={this.state} issignupInputHandler={this.signupInputHandler.bind(this)} issignupsubmit={this.signupsubmit.bind(this)} login_signup_reducer={this.props.login_signup_reducer} session={this.props.session}/>
         )
     }
 }
@@ -86,7 +86,8 @@ signupsubmit(ev){
 // Map State to Props
 function mapStateToProp(state) {
     return {
-        login_signup_reducer : state.login_signup_reducer
+        login_signup_reducer : state.login_signup_reducer,
+        session:state.session
     }
 }
 //Map Dispatch to Props

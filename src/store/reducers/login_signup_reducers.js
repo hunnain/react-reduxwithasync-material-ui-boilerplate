@@ -2,7 +2,7 @@ import login_signup_action from '../actions/login_signup_action';
 const INITIAL_STATE={
     userAuth:{},
     userRegistered:false,
-    userAuthenticated:false,
+    authenticated:false,
     loading:false,
     error:false,
     errorMessage:{}
@@ -23,16 +23,20 @@ const login_signup_reducer=(state=INITIAL_STATE,action)=>{
             }
             case login_signup_action.LOGIN:
             return{
-                ...state,loading:false,error:false,userAuthenticated:false
+                ...state,loading:false,error:false,authenticated:false
             }
             case login_signup_action.LOGIN_SUCCESS:
             return{
-                ...state, loading:false, error:false, userAuthenticated:true, userAuth:action.payload , userRegistered:false, errorMessage:{}
+                ...state, loading:false, error:false, authenticated:true, userAuth:action.payload , userRegistered:false, errorMessage:{}
             }
             case login_signup_action.LOGIN_FAILED:
             // console.log(action.payload)
             return{
-                ...state, loading:false, error:true, userAuthenticated:false, errorMessage:action.payload
+                ...state, loading:false, error:true, authenticated:false, errorMessage:action.payload
+            }
+            case login_signup_action.LOGOUT:
+            return{
+                ...state, loading:false, error:false, authenticated:false,userRegistered:false
             }
          default:
              return state;

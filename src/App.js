@@ -5,7 +5,6 @@ import DocumentTitle from 'react-document-title'
 import {Provider} from 'react-redux';
 import store from './store'
 import Routers from "./routers/index";
-
 class App extends Component {
   render() {
     return (

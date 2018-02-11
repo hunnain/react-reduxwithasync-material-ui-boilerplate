@@ -50,6 +50,7 @@ class SignupComponent extends Component{
     render(){
         return(
             <div>
+              {(this.props.session.authenticated)?( history.replace('/home') ):(  
                 <DocumentTitle title="Signup Social App">
                 
                 <div className="signupContainer">
@@ -65,7 +66,7 @@ class SignupComponent extends Component{
               this.state.snackbaropen=false
               }
               {/* Snackbar of Firebase error */}
-              <Snackbar anchorOrigin={{ vertical:'top', horizontal:'left' }} open={this.state.snackbaropen} onClose={this.state.snackbaropen=false} SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span onClick={this.state.snackbaropen=false} id="firebaseformchecking">{this.props.login_signup_reducer.errorMessage}</span>} />
+              <Snackbar anchorOrigin={{ vertical:'top', horizontal:'left' }} open={this.state.snackbaropen}  SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span onClick={this.state.snackbaropen=false} id="firebaseformchecking">{this.props.login_signup_reducer.errorMessage}</span>} />
                 <h2>Welcome in Social App</h2>
                 <h2>{this.props.isState.signuperrormessage}</h2>
                 <div className="signupForm">
@@ -91,6 +92,7 @@ class SignupComponent extends Component{
                 </div>
                 </div>
                 </DocumentTitle>
+              )}
             </div>
         )
     }

@@ -7,6 +7,11 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
+import { connect } from 'react-redux';
+import compose from 'recompose/compose';
+import SignupMiddleware from '../store/middlewares/index'
+import './styles.css'
+
 import './styles.css'
 
 const styles = {
@@ -39,8 +44,21 @@ function ButtonAppBar(props) {
           </div>
           <Typography variant="title" color="inherit" className={classes.flex}>
           </Typography>
-          <Link to="/"><Button id="navbtn" className={classes.navbtn} color="default">Login</Button></Link>
-          <Link to="/signup"><Button color="default">Signup</Button></Link>
+         {(props.session.authenticated)?
+         (
+           <div>
+          <Link to="/home" id="navlink"><Button color="default">Home</Button></Link>
+          <Link to="/profile" id="navlink"><Button color="default">Profile</Button></Link>
+          <Button color="default" id="navlink" onClick={props.logout}>Logout</Button>
+          </div>
+          )
+        :(
+          <div>
+        <Link to="/"><Button id="navbtn" className={classes.navbtn} color="default">Login</Button></Link>
+        <Link to="/signup"><Button id="navbtn" color="default">Signup</Button></Link>
+        </div>
+        )
+        }
         </Toolbar>
       </AppBar>
     </div>
@@ -50,5 +68,24 @@ function ButtonAppBar(props) {
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
-export default withStyles(styles)(ButtonAppBar);
+// Redux Map State To Props
+function mapStateToProps(state){
+  console.log("Navbar",state)
+  return{
+    login_signup_reducer:state.login_signup_reducer,
+    session:state.session
+  }
+}
+function mapDispatchToProps(dispatch){
+  console.log("Dispatch",dispatch)
+  return{
+    logout:()=>{
+    dispatch(SignupMiddleware.asyncLogout())
+    }
+  }
+}
+// export default compose(
+//   withStyles(styles, { name: 'ButtonAppBar' }),
+//   connect(mapStateToProps,mapDispatchToProps)
+// )(ButtonAppBar);
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(ButtonAppBar))

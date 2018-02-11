@@ -28,6 +28,7 @@ class LoginComponent extends Component{
       this.state={
           rememberme:false,
           snackbaropen:false,
+          dbsnackbar:false,
           transition: null,
       }
       this.classes = props
@@ -38,27 +39,29 @@ class LoginComponent extends Component{
       handleClose(){
         this.state = false
       }
+      
     render(){
         return(
+          <div>
+            {(this.props.session.authenticated)?( history.replace('/home') ):(     
+            
         <DocumentTitle title="Login Social App">
             <div className="logincontainer">
-            {(this.props.isState.errormessage)?
+             
+              {(this.props.isState.errormessage)?
                 this.state.snackbaropen = true   
               :
               this.state.snackbaropen=false  
               }
-               <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'right' }} open={this.state.snackbaropen} onMouseOver={this.handleClose.bind(this)} SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span id="formchecking">{this.props.isState.errormessage}</span>} />
+                <Snackbar anchorOrigin={{ vertical:'bottom', horizontal:'right' }} open={this.state.snackbaropen} onMouseOver={this.handleClose.bind(this)} SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span id="formchecking">{this.props.isState.errormessage}</span>} /> 
                <h2>Welcome in Social App</h2>
                {(this.props.login_signup_reducer.error)?(
               this.state.snackbaropen = true
                )
               :
-            //   this.state.snackbaropen=false
             ''
               }
-              {console.log(this.props.login_signup_reducer.userAuth.email)}
-              {/* Snackbar of Firebase error */}
-              <Snackbar anchorOrigin={{ vertical:'top', horizontal:'left' }} open={this.state.snackbaropen} onClose={this.state.snackbaropen=false} SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span onClick={this.state.snackbaropen=false} id="firebaseformchecking">{this.props.login_signup_reducer.errorMessage}</span>} />
+              <Snackbar anchorOrigin={{ vertical:'top', horizontal:'left' }} open={this.state.dbsnackbar} SnackbarContentProps={{ 'aria-describedby': 'message-id', }} message={<span onClick={this.state.dbsnackbar=false} id="firebaseformchecking">{this.props.login_signup_reducer.errorMessage}</span>} /> 
 
              <div className="loginForm">
                 <h3 className="logintxt">Login</h3>
@@ -71,7 +74,10 @@ class LoginComponent extends Component{
              </div>
             </div>
         </DocumentTitle>
-        )
-    }
+            )}
+        </div>
+            // )}
+
+            )}
 }
 export default LoginComponent

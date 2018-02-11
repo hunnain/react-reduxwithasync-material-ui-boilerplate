@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoginComponent from '../components/loginComponent';
-import SignupMiddleware from '../store/middlewares/index'
+import SignupMiddleware from '../store/middlewares/index';
+
 
 class Login extends Component{
     constructor(props){
@@ -20,6 +21,7 @@ class Login extends Component{
             [ev.target.name]:ev.target.value.toLowerCase(),
             loginTime:date.toUTCString()
         })
+        console.log("Login container session",this.props.session.authenticated)
     }
     submitInputHandler(ev){
         let userEmailRequired = false;
@@ -52,7 +54,7 @@ class Login extends Component{
     render(){
         return(
             <div>
-                <LoginComponent isState={this.state} isloginInputHandler={this.loginInputHandler.bind(this)} issubmitInputHandler={this.submitInputHandler.bind(this)} login_signup_reducer={this.props.login_signup_reducer}/>
+                <LoginComponent isState={this.state} isloginInputHandler={this.loginInputHandler.bind(this)} issubmitInputHandler={this.submitInputHandler.bind(this)} login_signup_reducer={this.props.login_signup_reducer} session={this.props.session}/>
             </div>
         )
     }
@@ -60,7 +62,8 @@ class Login extends Component{
 // Redux Map State To Props
 function mapStateToProps(state){
     return{
-        login_signup_reducer:state.login_signup_reducer
+        login_signup_reducer:state.login_signup_reducer,
+        session:state.session
     }
 }
 // Redux Map Dispacth To Props
