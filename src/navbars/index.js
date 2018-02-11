@@ -54,8 +54,8 @@ function ButtonAppBar(props) {
           )
         :(
           <div>
-        <Link to="/"><Button id="navbtn" className={classes.navbtn} color="default">Login</Button></Link>
-        <Link to="/signup"><Button id="navbtn" color="default">Signup</Button></Link>
+        <Link to="/" id="navlink"><Button id="navbtn" className={classes.navbtn} color="default">Login</Button></Link>
+        <Link to="/signup" id="navlink"><Button id="navbtn" color="default">Signup</Button></Link>
         </div>
         )
         }
